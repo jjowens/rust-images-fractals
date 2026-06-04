@@ -2,20 +2,20 @@ use image::GenericImageView;
 
 fn main() {
     println!("generating images");
-    generate_custom_fractals();
+    generate_custom_rgb();
 }
 
-fn generate_custom_fractals() {
+fn generate_custom_rgb() {
     let width = 800;
     let height = 800;
 
-    custom_fractal(width, height, "red-green.png");
-    custom_fractal(width, height, "red-blue.png");
-    custom_fractal(width, height, "blue-green.png");
-    custom_fractal(200, 200, "blue-green-200x200.png");
+    custom_rgb(width, height, "red-green.png");
+    custom_rgb(width, height, "red-blue.png");
+    custom_rgb(width, height, "blue-green.png");
+    custom_rgb(200, 200, "blue-green-200x200.png");
 }
 
-fn custom_fractal(width: u32, height: u32, image_file_name: &str) {
+fn custom_rgb(width: u32, height: u32, image_file_name: &str) {
     // Create a new ImgBuf with width: imgx and height: imgy
     let mut imgbuf = image::ImageBuffer::new(width, height);
 
