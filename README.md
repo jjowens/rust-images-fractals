@@ -1,2 +1,2 @@
-# rust-images-fractals
-Experimenting with fractal images in Rust
+# rust-images-rgb-editor
+Experimenting with generating images with RGB parameters
