@@ -1,3 +1,5 @@
+use std::fs;
+
 fn main() {
     println!("generating images");
     generate_custom_rgb();
@@ -46,7 +48,25 @@ fn custom_rgb(width: u32, height: u32, image_file_name: &str, colour_factor: f32
         }
     }
 
-    let save_file_path = format!("test-images/{}", image_file_name);
+    let mut dir_name = "red-green";
+
+    if image_file_name.contains("red-green") {
+        dir_name = "red-green";
+    }
+
+    if image_file_name.contains("red-blue") {
+        dir_name = "red-blue";
+    }
+
+    if image_file_name.contains("blue-green") {
+        dir_name = "blue-green";
+    }
+
+    let dir_path =  format!("test-images/{}", dir_name);
+
+    fs::create_dir(dir_path.as_str()).ok();
+
+    let save_file_path = format!("{}/{}", dir_path, image_file_name);
 
     // Save the image as “fractal.png”, the format is deduced from the path
     imgbuf.save(save_file_path).unwrap();
