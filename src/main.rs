@@ -1,17 +1,22 @@
 use std::fs;
+use enum_display::EnumDisplay;
 
 fn main() {
     println!("generating images");
     generate_custom_rgb();
 }
-
+#[derive(EnumDisplay)]
 enum ColourNames {
     Red,
     Green,
     Blue,
+    #[display(fmt = "red-blue")]
     RedBlue,
+    #[display(fmt = "red-green")]
     RedGreen,
+    #[display(fmt = "blue-green")]
     BlueGreen,
+    #[display(fmt = "red-green-blue")]
     RedGreenBlue,
     Black,
     White
@@ -103,7 +108,8 @@ fn custom_rgb(width: u32, height: u32, image_file_name: &str, colour_factor: f32
         *pixel = image::Rgb([r, g, b]);
     }
 
-    let dir_name = get_dir_name(colour_names);
+    //let dir_name = get_dir_name(colour_names);
+    let dir_name = colour_names.to_string().to_lowercase();
 
     let dir_path =  format!("test-images/{}", dir_name);
 
@@ -113,36 +119,4 @@ fn custom_rgb(width: u32, height: u32, image_file_name: &str, colour_factor: f32
 
     // Save the image as “fractal.png”, the format is deduced from the path
     imgbuf.save(save_file_path).unwrap();
-}
-
-fn get_dir_name(colour_names: ColourNames) -> String {
-    match colour_names {
-        ColourNames::Red => {
-            "red".to_lowercase()
-        }
-        ColourNames::Blue => {
-            "blue".to_lowercase()
-        }
-        ColourNames::Green => {
-            "green".to_lowercase()
-        }
-        ColourNames::RedGreen => {
-            "red-green".to_lowercase()
-        }
-        ColourNames::RedBlue => {
-            "red-blue".to_lowercase()
-        }
-        ColourNames::BlueGreen => {
-            "blue-green".to_lowercase()
-        }
-        ColourNames::RedGreenBlue => {
-            "red-green-blue".to_lowercase()
-        }
-        ColourNames::White => {
-            "white".to_lowercase()
-        }
-        ColourNames::Black => {
-            "black".to_lowercase()
-        }
-    }
 }
