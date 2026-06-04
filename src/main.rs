@@ -12,24 +12,17 @@ fn generate_custom_fractals() {
     custom_fractal(width, height, "red-green.png");
     custom_fractal(width, height, "red-blue.png");
     custom_fractal(width, height, "blue-green.png");
+    custom_fractal(200, 200, "blue-green-200x200.png");
 }
 
 fn custom_fractal(width: u32, height: u32, image_file_name: &str) {
-    //! An example of generating julia fractals.
-    let imgx = 800;
-    let imgy = 800;
-
     // Create a new ImgBuf with width: imgx and height: imgy
-    let mut imgbuf = image::ImageBuffer::new(imgx, imgy);
+    let mut imgbuf = image::ImageBuffer::new(width, height);
 
-    let colour_factor = 0.9;
+    let colour_factor = 0.5;
 
     // Iterate over the coordinates and pixels of the image
     for (x, y, pixel) in imgbuf.enumerate_pixels_mut() {
-        // let r = (0.3 * x as f32) as u8;
-        // let g = (0.3 * x as f32) as u8;
-        // let b = (0.3 * y as f32) as u8;
-
         let r = (colour_factor * x as f32) as u8;
         let g = (colour_factor * x as f32) as u8;
         let b = (colour_factor * y as f32) as u8;
@@ -47,6 +40,8 @@ fn custom_fractal(width: u32, height: u32, image_file_name: &str) {
         }
     }
 
+    let save_file_path = format!("test-images/{}", image_file_name);
+
     // Save the image as “fractal.png”, the format is deduced from the path
-    imgbuf.save(image_file_name).unwrap();
+    imgbuf.save(save_file_path).unwrap();
 }
