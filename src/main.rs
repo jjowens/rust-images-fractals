@@ -1,5 +1,3 @@
-use image::GenericImageView;
-
 fn main() {
     println!("generating images");
     generate_custom_rgb();
@@ -8,18 +6,26 @@ fn main() {
 fn generate_custom_rgb() {
     let width = 800;
     let height = 800;
+    let colour_factor = 0.5;
 
-    custom_rgb(width, height, "red-green.png");
-    custom_rgb(width, height, "red-blue.png");
-    custom_rgb(width, height, "blue-green.png");
-    custom_rgb(200, 200, "blue-green-200x200.png");
+    custom_rgb(width, height, "red-green.png", colour_factor);
+    custom_rgb(width, height, "red-blue.png", colour_factor);
+    custom_rgb(width, height, "blue-green.png", colour_factor);
+    custom_rgb(200, 200, "blue-green-200x200.png", colour_factor);
+
+    let list_of_factors = vec![0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+
+    for factor in list_of_factors {
+        custom_rgb(800, 800, format!("red-green-{}.png", factor).as_str(), factor);
+        custom_rgb(800, 800, format!("red-blue-{}.png", factor).as_str(), factor);
+        custom_rgb(800, 800, format!("blue-green-{}.png", factor).as_str(), factor);
+    }
+
 }
 
-fn custom_rgb(width: u32, height: u32, image_file_name: &str) {
+fn custom_rgb(width: u32, height: u32, image_file_name: &str, colour_factor: f32) {
     // Create a new ImgBuf with width: imgx and height: imgy
     let mut imgbuf = image::ImageBuffer::new(width, height);
-
-    let colour_factor = 0.5;
 
     // Iterate over the coordinates and pixels of the image
     for (x, y, pixel) in imgbuf.enumerate_pixels_mut() {
